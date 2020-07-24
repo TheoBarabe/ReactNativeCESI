@@ -1,7 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList  } from 'react-native'
 import Film from './Film'
+import DetailFilm from './DetailFilm'
 import { getFilmsFromApiWithSearchedText } from '../API/OMDBApi'
+
+
 
 class Search extends React.Component {
 	
@@ -9,17 +12,18 @@ class Search extends React.Component {
 		super(props)
 		this._films = []
   }
+  
+    _displayDetailForFilm = (idFilm) => {
+		console.log("Display film with id " + idFilm)
+	}
 
-  _loadFilms() {
-
-
-    getFilmsFromApiWithSearchedText("star").then(data => {
-      this._films = data.Search
-      this.forceUpdate()
-      console.log(this._films)
-    })
-
- }
+	_loadFilms() {
+		getFilmsFromApiWithSearchedText("star").then(data => {
+			this._films = data.Search
+			this.forceUpdate()
+			console.log(this._films)
+		})
+	}
 	
   render() {
 
@@ -36,7 +40,7 @@ class Search extends React.Component {
         <FlatList
             data = {this._films}
             keyExtractor={(item) => item.imdbID.toString()}
-            renderItem={({item}) => <Film data={item}/>}
+            renderItem={({item}) => <Film data={item} displayDetailForFilm={this._displayDetailForFilm}/>}
         />
       </View>
     )

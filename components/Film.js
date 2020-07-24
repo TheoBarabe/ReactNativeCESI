@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 
-export default function Film({data}){
+export default function Film({data, displayDetailForFilm }){
   
 	return (
-      <View style={styles.main_container}>
+      <TouchableOpacity style={styles.main_container} onPress={() => displayDetailForFilm(data.imdbID)}>
         <Image
           style={styles.image}
           source={{uri: data.Poster}}
@@ -17,7 +17,7 @@ export default function Film({data}){
             <Text style={styles.date_text}>Sorti en {data.Year}</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
 }
 
