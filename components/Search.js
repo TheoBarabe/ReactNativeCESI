@@ -6,25 +6,33 @@ import { getFilmsFromApiWithSearchedText, getFilmFromApiWithId } from '../API/OM
 
 class Search extends React.Component {
 	
-	constructor(props) {
-		super(props)
-    this._films = []
-    this.state = {isDetail: false};
+  constructor(props) {
+      super(props)
+      this.state = {
+        films: [],
+        searchedText: "", // Initialisation de notre donnée searchedText dans le state
+        isDetail: false
+      }
   }
   
-    _displayDetailForFilm = (idFilm) => {
+  _displayDetailForFilm = (idFilm) => {
     console.log("Display film with id " + idFilm)
 
     getFilmFromApiWithId(idFilm).then(data => {
       this._films = data
       this.setState({isDetail: true});
-			this.forceUpdate()
-		})
+      this.forceUpdate()
+    })
 
 	}
+	
+	_searchTextInputChanged(text) {
+        this.setState({ searchedText: text })
+    }
+    
 
 	_loadFilms() {
-		getFilmsFromApiWithSearchedText("star").then(data => {
+		getFilmsFromApiWithSearchedText(this.state.searchedText).then(data => {
       this._films = data.Search
       this.setState({isDetail: false});
 			this.forceUpdate()
