@@ -8,13 +8,14 @@ export default function App() {
 
   return (
     <SafeAreaView>
-	<View>
+      <View>
+        <img
+          src={Logo}
+          style={{ width: '100%', resizeMode: 'contain' }}
+        />
+      </View>
 
-		<img
-		  src={Logo}
-		  style={{ width: '100%', resizeMode: 'contain' }}
-		/>
-		</View>
+    <Text style={styles.banderolle}>Découvrez notre recherche de films</Text>
 
 		<View><Search/></View>
 
@@ -34,5 +35,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+  },
+  banderolle: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    paddingLeft: 20,
+    paddingTop: 10
   },
 });
