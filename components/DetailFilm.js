@@ -1,91 +1,69 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 
 export default function DetailFilm({data }){
 
 	return (
-      <TouchableOpacity style={styles.main_container}>
-        <Image
-          style={styles.image}
-          source={{uri: data.Poster}}
-        />
-        <View style={styles.content_container}>
-          <View style={styles.header_container}>
-            <Text style={styles.title_text}>{data.Title}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Genres : {data.Genre}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Acteurs : {data.Actors}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Réalisateurs : {data.Director}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Producteurs : {data.Production}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Box Office {data.BoxOffice}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.description_text}>Résumé : {data.Plot}</Text>
-          </View>
-          <View style={styles.header_container}>
-            <Text style={styles.date_text}>Note {data.imdbRating} / 10</Text>
-          </View>
-          <View style={styles.date_container}>
-            <Text style={styles.date_text}>Sorti en {data.Year}</Text>
-          </View>
-          
-        </View>
-      </TouchableOpacity>
+		<ScrollView style={styles.scrollview_container}>
+			<Image
+				style={styles.image}
+				source={{uri: data.Poster}}
+			/>
+			<Text style={styles.title_text}>{data.Title}</Text>
+			<Text style={styles.description_text}>{data.Plot}</Text>
+			<Text style={styles.default_text}>Sorti le {data.Released}</Text>
+			<Text style={styles.default_text}>Durée : {data.Runtime}</Text>
+			<Text style={styles.default_text}>Acteurs : {data.Actors}</Text>
+			<Text style={styles.default_text}>Note : {data.imdbRating} / 10</Text>
+			<Text style={styles.default_text}>Box Office : {data.BoxOffice}</Text>
+			<Text style={styles.default_text}>Genre(s) : {data.Genre}</Text>
+			<Text style={styles.default_text}>Récompenses : {data.Awards}</Text>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
   main_container: {
-    height: '100%',
-    flexDirection: 'row'
+    flex: 1
+  },
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  scrollview_container: {
+    flex: 1
   },
   image: {
-    width: 120,
-    height: 180,
+    height: 169,
     margin: 5,
-    backgroundColor: 'gray'
-  },
-  content_container: {
-    flex: 1,
-    margin: 5
-  },
-  header_container: {
-    flex: 3,
-    flexDirection: 'row'
+	resizeMode: 'contain'
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 35,
     flex: 1,
     flexWrap: 'wrap',
-    paddingRight: 5
-  },
-  Note: {
-    fontWeight: 'bold',
-    fontSize: 26,
-    color: '#666666'
-  },
-  description_container: {
-    flex: 7
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    color: '#000000',
+    textAlign: 'center'
   },
   description_text: {
     fontStyle: 'italic',
-    color: '#666666'
+    color: '#666666',
+    margin: 5,
+    marginBottom: 15
   },
-  date_container: {
-    flex: 1
-  },
-  date_text: {
-    textAlign: 'right',
-    fontSize: 14
+  default_text: {
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 5,
   }
 })
