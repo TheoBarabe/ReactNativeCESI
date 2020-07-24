@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList  } from 'react-native'
 import Film from './Film'
+import { getFilmsFromApiWithSearchedText } from '../API/OMDBApi'
 
 const testData = [
    {
@@ -29,25 +30,37 @@ class Search extends React.Component {
 	constructor(props) {
 		super(props)
 		this._films = []
-	}
-	
+  }
 
+  _loadFilms() {
+
+
+    getFilmsFromApiWithSearchedText("star").then(data => {
+      this._films = data.Search
+      this.forceUpdate()
+      console.log(this._films)
+    })
+
+ }
+	
   render() {
+
     return (
       <View style={styles.main_container}>
         <TextInput
-			style={styles.textinput}
-			placeholder='Titre du film'
-			onChangeText={(text) => this._searchTextInputChanged(text)}
-			onSubmitEditing={() => this._loadFilms()}
-		/>
-        <Button title='Rechercher' onPress={() => {}}/>
+          style={styles.textinput}
+          placeholder='Titre du film'
+          onChangeText={(text) => this._searchTextInputChanged(text)}
+          onSubmitEditing={() => this._loadFilms()}
+		    />
+        <Button title='Rechercher' onPress={() => this._loadFilms()}/>
+
         <FlatList
-			data={testData}
-			//data = {this._films}
-			keyExtractor={(item) => item.id.toString()}
-			renderItem={({item}) => <Film data={item}/>}
-		/>
+            //data={testData}
+            data = {this._films}
+            keyExtractor={(item) => item.imdbID.toString()}
+            renderItem={({item}) => <Film data={item}/>}
+        />
       </View>
     )
   }
