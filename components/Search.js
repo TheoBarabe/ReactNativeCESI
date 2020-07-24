@@ -2,30 +2,52 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList  } from 'react-native'
 import Film from './Film'
 import DetailFilm from './DetailFilm'
-import { getFilmsFromApiWithSearchedText } from '../API/OMDBApi'
-
-
+import { getFilmsFromApiWithSearchedText, getFilmFromApiWithId } from '../API/OMDBApi'
 
 class Search extends React.Component {
 	
 	constructor(props) {
 		super(props)
-		this._films = []
+    this._films = []
+    this.state = {isDetail: false};
   }
   
     _displayDetailForFilm = (idFilm) => {
-		console.log("Display film with id " + idFilm)
+    console.log("Display film with id " + idFilm)
+
+    getFilmFromApiWithId(idFilm).then(data => {
+      this._films = data
+      this.setState({isDetail: true});
+			this.forceUpdate()
+		})
+
 	}
 
 	_loadFilms() {
 		getFilmsFromApiWithSearchedText("star").then(data => {
-			this._films = data.Search
+      this._films = data.Search
+      this.setState({isDetail: false});
 			this.forceUpdate()
-			console.log(this._films)
 		})
-	}
+  }
 	
   render() {
+
+    
+    const isDetail = this.state.isDetail;
+    let affichage;
+
+    if (isDetail) {
+      affichage = <DetailFilm data = {this._films}></DetailFilm>;
+    } else {
+      affichage = <FlatList
+                    data = {this._films}
+                    keyExtractor={(item) => item.imdbID.toString()}
+                    renderItem={({item}) => <Film data={item} displayDetailForFilm={this._displayDetailForFilm}/>}
+      />;
+    }
+
+    console.log(affichage);
 
     return (
       <View style={styles.main_container}>
@@ -37,11 +59,8 @@ class Search extends React.Component {
 		    />
         <Button title='Rechercher' onPress={() => this._loadFilms()}/>
 
-        <FlatList
-            data = {this._films}
-            keyExtractor={(item) => item.imdbID.toString()}
-            renderItem={({item}) => <Film data={item} displayDetailForFilm={this._displayDetailForFilm}/>}
-        />
+        {affichage}
+        
       </View>
     )
   }

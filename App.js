@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, Button, SafeAreaView, ScrollView } from 'react-native';
 import MyHeader from './components/Header'
 import Search from './Components/Search'
+import Logo from './assets/allocinema.png'
 
 export default function App() {
-
-
 
   return (
     <SafeAreaView style={styles.container}>
 
-	  <View><Search/></View>
-	  
+    <img
+      src={Logo}
+      style={{ width: '100%', resizeMode: 'contain' }}
+    />
 
+	  <View><Search/></View>
 
     </SafeAreaView>
   );

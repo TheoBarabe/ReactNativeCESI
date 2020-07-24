@@ -10,3 +10,13 @@ export function getFilmsFromApiWithSearchedText (text) {
     .catch((error) => console.error(error))
 
 }
+
+export function getFilmFromApiWithId (filmId) {
+  const url = 'https://www.omdbapi.com/?i=' + filmId + '&apikey=' + API_TOKEN;
+  
+  return fetch(url)
+    .then((response) => response.json())
+    .catch((error) => console.error(error))
+
+}
+
