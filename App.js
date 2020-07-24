@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, Button, SafeAreaView, ScrollView } from 
 import MyHeader from './components/Header'
 import Search from './Components/Search'
 import Logo from './assets/allocinema.png'
+import Youtube from './assets/voldimage.png'
 
 export default function App() {
 
@@ -18,6 +19,13 @@ export default function App() {
     <Text style={styles.banderolle}>Découvrez notre recherche de films</Text>
 
 		<View><Search/></View>
+
+    <View>
+        <img
+          src={Youtube}
+          style={{ width: '100%', resizeMode: 'contain', paddingTop:25 }}
+        />
+      </View>
 
     </SafeAreaView>
   );
