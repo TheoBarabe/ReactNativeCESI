@@ -7,9 +7,10 @@ export default function AddForm({handleAdd}){
 
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
+	const [actors, setActors] = useState('')
 
     function validateAndSend(){
-        handleAdd(title, desc);
+        handleAdd(title, desc, actors);
     }
 
     return (
@@ -32,6 +33,13 @@ export default function AddForm({handleAdd}){
                 value={desc}
                 onChangeText={(str) => setDesc(str)}
                 placeholder='Description de la note'
+                multiline={true}
+            />
+			
+			<Input
+                value={actors}
+                onChangeText={(str) => setActors(str)}
+                placeholder='Acteurs'
                 multiline={true}
             />
 
