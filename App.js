@@ -7,14 +7,16 @@ import Logo from './assets/allocinema.png'
 export default function App() {
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
+	<View>
 
-    <img
-      src={Logo}
-      style={{ width: '100%', resizeMode: 'contain' }}
-    />
+		<img
+		  src={Logo}
+		  style={{ width: '100%', resizeMode: 'contain' }}
+		/>
+		</View>
 
-	  <View><Search/></View>
+		<View><Search/></View>
 
     </SafeAreaView>
   );
